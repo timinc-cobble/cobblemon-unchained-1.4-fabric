@@ -12,10 +12,13 @@ import us.timinc.mc.cobblemon.counter.Counter
 @Suppress("MemberVisibilityCanBePrivate")
 @Config(name = "${Chaining.MOD_ID}/shinyBoost")
 class ShinyBoostConfig : ConfigData {
-    @Comment("The number of points each of these counter types grant")
+    @Comment("The multiplier for the player's latest KO streak for a given species")
     val koStreakPoints = 1
+    @Comment("The multiplier for the player's total KOs for a given species")
     val koCountPoints = 0
+    @Comment("The multiplier for the player's latest capture streak for a given species")
     val captureStreakPoints = 0
+    @Comment("The multiplier for the player's total captures for a given species")
     val captureCountPoints = 0
 
     @Comment("The distance at which a spawning Pokémon considers a player for this boost")
