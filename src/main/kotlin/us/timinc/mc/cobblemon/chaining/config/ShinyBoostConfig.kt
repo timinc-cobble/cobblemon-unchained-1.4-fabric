@@ -13,16 +13,16 @@ import us.timinc.mc.cobblemon.counter.Counter
 @Config(name = "${Chaining.MOD_ID}/shinyBoost")
 class ShinyBoostConfig : ConfigData {
     @Comment("The number of points each of these counter types grant")
-    val koStreakPoints = 0
+    val koStreakPoints = 1
     val koCountPoints = 0
-    val captureStreakPoints = 1
+    val captureStreakPoints = 0
     val captureCountPoints = 0
 
     @Comment("The distance at which a spawning Pokémon considers a player for this boost")
     val effectiveRange = 64
 
     @Comment("Thresholds for the points : shiny chance bonus")
-    val thresholds: Map<Int, Int> = mutableMapOf(Pair(5, 1), Pair(10, 2), Pair(20, 3), Pair(30, 4))
+    val thresholds: Map<Int, Int> = mutableMapOf(Pair(100, 1), Pair(300, 2), Pair(500, 3))
 
     @Suppress("KotlinConstantConditions")
     fun getPoints(player: Player, species: String): Int {
