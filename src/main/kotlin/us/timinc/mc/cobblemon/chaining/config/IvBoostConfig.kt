@@ -21,7 +21,7 @@ class IvBoostConfig : ConfigData {
     @Comment("The distance at which a spawning Pokémon considers a player for this boost")
     val effectiveRange = 64
 
-    @Comment("Thresholds for the points : shiny chance bonus")
+    @Comment("Thresholds for the points : perfect IVs")
     val thresholds: Map<Int, Int> = mutableMapOf(Pair(5, 1), Pair(10, 2), Pair(20, 3), Pair(30, 4))
 
     @Comment("Turn this to true to see log output")

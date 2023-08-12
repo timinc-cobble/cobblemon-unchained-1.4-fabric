@@ -11,8 +11,8 @@ plugins {
     kotlin("jvm") version ("1.7.10")
 }
 
-group = "us.timinc.mc.cobblemon.ivbooster"
-version = "1.0.0"
+group = "us.timinc.mc.cobblemon.chaining"
+version = "1.0.1"
 
 architectury {
     platformSetupLoomIde()
