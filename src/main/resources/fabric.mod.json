@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "cobblemon_chaining",
+  "version": "0.0.0",
+  "name": "Cobblemon Chaining",
+  "description": "Naturally spawning Hidden Abilities. KOs and/or captures increase nearby shiny rates, and can also give perfect IVs to nearby spawns.\n\n",
+  "authors": [
+    "TimInc aka Timothy Metcalfe"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "us.timinc.mc.cobblemon.chaining.Chaining"
+      }
+    ]
+  },
+  "mixins": [
+    "chaining.mixins.json"
+  ],
+  "depends": {
+    "java": ">=17",
+    "minecraft": ">=1.19.2",
+    "fabricloader": ">=0.13.3",
+    "fabric-language-kotlin": ">=1.9.3+kotlin.1.8.20",
+    "fabric": "*",
+    "architectury": ">=6.0.37",
+    "cobblemon": ">=1.2.0"
+  }
+}
