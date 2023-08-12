@@ -11,7 +11,7 @@ import us.timinc.mc.cobblemon.counter.Counter
 @Config(name = "${Chaining.MOD_ID}/hiddenBoost")
 class HiddenBoostConfig : ConfigData {
     @Comment("The number of points each of these counter types grant")
-    val koStreakPoints = 10
+    val koStreakPoints = 100
     val koCountPoints = 1
     val captureStreakPoints = 0
     val captureCountPoints = 0
@@ -20,7 +20,7 @@ class HiddenBoostConfig : ConfigData {
     val effectiveRange = 64
 
     @Comment("Thresholds for the points: {first/good marbles, second/total marbles}")
-    val thresholds: Map<Int, Pair<Int, Int>> = mutableMapOf(10 to (1 to 1))
+    val thresholds: Map<Int, Pair<Int, Int>> = mutableMapOf(99 to (1 to 5))
 
     @Comment("Turn this to true to see log output")
     val debug = false
