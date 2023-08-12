@@ -22,13 +22,14 @@ public abstract class PokemonSpawnActionMixin {
     private PokemonProperties props;
 
     @Inject(method = "createEntity()Lcom/cobblemon/mod/common/entity/pokemon/PokemonEntity;", at = @At("HEAD"))
-    private void modifyShinyRate(CallbackInfoReturnable<Entity> cir) {
+    private void modifyCreateEntityHead(CallbackInfoReturnable<Entity> cir) {
         SpawningContext ctx = ((PokemonSpawnAction) (Object) this).getCtx();
         Chaining.INSTANCE.possiblyMakeShiny(ctx, props);
+        Chaining.INSTANCE.possiblySynchronizeNatures(ctx, props);
     }
 
     @Inject(method = "createEntity()Lcom/cobblemon/mod/common/entity/pokemon/PokemonEntity;", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void possiblyModifyIvs(CallbackInfoReturnable<PokemonEntity> cir, List<ItemStack> list, ItemStack itemStack, PokemonEntity entity) {
+    private void modifyCreateEntityReturn(CallbackInfoReturnable<PokemonEntity> cir, List<ItemStack> list, ItemStack itemStack, PokemonEntity entity) {
         SpawningContext ctx = ((PokemonSpawnAction) (Object) this).getCtx();
         Chaining.INSTANCE.possiblyModifyIvs(entity, ctx, props);
         Chaining.INSTANCE.possiblyAddHiddenAbility(entity, ctx, props);
