@@ -11,9 +11,9 @@ import us.timinc.mc.cobblemon.counter.Counter
 @Config(name = "${Chaining.MOD_ID}/hiddenBoost")
 class HiddenBoostConfig : ConfigData {
     @Comment("The number of points each of these counter types grant")
-    val koStreakPoints = 0
-    val koCountPoints = 0
-    val captureStreakPoints = 1
+    val koStreakPoints = 10
+    val koCountPoints = 1
+    val captureStreakPoints = 0
     val captureCountPoints = 0
 
     @Comment("The distance at which a spawning Pokémon considers a player for this boost")
