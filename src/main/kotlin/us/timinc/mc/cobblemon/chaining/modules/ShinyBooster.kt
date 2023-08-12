@@ -4,11 +4,7 @@ import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.level.Level
-import net.minecraft.world.phys.AABB
-import net.minecraft.world.phys.Vec3
 import us.timinc.mc.cobblemon.chaining.config.ShinyBoostConfig
 import kotlin.random.Random
 
@@ -17,17 +13,11 @@ class ShinyBooster(private val config: ShinyBoostConfig) : SpawnActionModifier("
         if (props.shiny != null) {
             return
         }
-        info("${props.species} spawned at ${ctx.position.toShortString()}")
+        info("${props.species} spawned at ${ctx.position.toShortString()}", config.debug)
 
-        val world: Level = ctx.world
         val species = props.species ?: return
 
-        val range = config.effectiveRange.toDouble()
-        @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS") val nearbyPlayers = world.getNearbyPlayers(
-            TargetingConditions.forNonCombat().ignoreLineOfSight().ignoreInvisibilityTesting(), null, AABB.ofSize(
-                Vec3.atCenterOf(ctx.position), range, range, range
-            )
-        )
+        val nearbyPlayers = getNearbyPlayers(ctx, config.effectiveRange.toDouble())
         info("nearby players: ${nearbyPlayers.size} ${
             nearbyPlayers.map {
                 "${it.name.string}:${
@@ -36,12 +26,12 @@ class ShinyBooster(private val config: ShinyBoostConfig) : SpawnActionModifier("
                     )
                 }"
             }
-        }")
+        }", config.debug)
         val possibleMaxPlayer = nearbyPlayers.stream().max(Comparator.comparingInt { player: Player? ->
             config.getPoints(player!!, species)
         })
         if (possibleMaxPlayer.isEmpty) {
-            info("conclusion: no nearby players")
+            info("conclusion: no nearby players", config.debug)
             return
         }
 
@@ -50,16 +40,19 @@ class ShinyBooster(private val config: ShinyBoostConfig) : SpawnActionModifier("
         val shinyChances = config.getThreshold(points) + 1
         val shinyRate: Int = Cobblemon.config.shinyRate.toInt()
 
-        info("${maxPlayer.name.string} wins with $points points, $shinyChances shiny chances out of $shinyRate total chances")
+        info(
+            "${maxPlayer.name.string} wins with $points points, $shinyChances shiny chances out of $shinyRate total chances",
+            config.debug
+        )
 
         if (shinyChances <= 1) {
-            info("conclusion: winning player didn't get any shiny boost")
+            info("conclusion: winning player didn't get any shiny boost", config.debug)
             return
         }
 
         val shinyRoll = Random.nextInt(shinyRate)
         val shinyResult = shinyRoll < shinyChances
         props.shiny = shinyResult
-        info("conclusion: set shiny to $shinyResult")
+        info("conclusion: set shiny to $shinyResult", config.debug)
     }
 }

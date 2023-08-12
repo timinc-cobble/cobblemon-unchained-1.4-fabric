@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package us.timinc.mc.cobblemon.chaining.config
 
 import me.shedaniel.autoconfig.ConfigData
@@ -7,23 +9,13 @@ import net.minecraft.world.entity.player.Player
 import us.timinc.mc.cobblemon.chaining.Chaining
 import us.timinc.mc.cobblemon.counter.Counter
 
-@Suppress("MemberVisibilityCanBePrivate")
-@Config(name = "${Chaining.MOD_ID}/hiddenBoost")
-class HiddenBoostConfig : ConfigData {
+@Config(name = "${Chaining.MOD_ID}/synchronizedNatures")
+class SynchronizedNaturesConfig : ConfigData {
     @Comment("The number of points each of these counter types grant")
-    val koStreakPoints = 10
-    val koCountPoints = 1
+    val koStreakPoints = 1
+    val koCountPoints = 0
     val captureStreakPoints = 0
     val captureCountPoints = 0
-
-    @Comment("The distance at which a spawning Pokémon considers a player for this boost")
-    val effectiveRange = 64
-
-    @Comment("Thresholds for the points: {first/good marbles, second/total marbles}")
-    val thresholds: Map<Int, Pair<Int, Int>> = mutableMapOf(10 to (1 to 1))
-
-    @Comment("Turn this to true to see log output")
-    val debug = false
 
     @Suppress("KotlinConstantConditions")
     fun getPoints(player: Player, species: String): Int {
@@ -35,16 +27,15 @@ class HiddenBoostConfig : ConfigData {
             player, species
         ) * captureStreakPoints) + (Counter.getPlayerCaptureCount(
             player, species
-        ) * captureCountPoints)
+        ) * captureCountPoints) + 1
     }
 
-    fun getThreshold(points: Int): Pair<Int, Int>? {
-        if (thresholds.isEmpty()) return null
-        if (thresholds.size == 1) return thresholds.values.first()
+    @Comment("The distance at which a spawning Pokémon considers a player for this boost")
+    val effectiveRange = 64
 
-        val targetThreshold = thresholds.entries
-            .filter { it.key < points }
-            .maxByOrNull { it.key }
-        return targetThreshold?.value
-    }
+    @Comment("Whether or not the Pokemon with synchronize must be the first in your party in order to be considered")
+    val mustBeFirst = true
+
+    @Comment("Turn this to true to see log output")
+    val debug = false
 }

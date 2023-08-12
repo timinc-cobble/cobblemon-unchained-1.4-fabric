@@ -24,6 +24,9 @@ class IvBoostConfig : ConfigData {
     @Comment("Thresholds for the points : shiny chance bonus")
     val thresholds: Map<Int, Int> = mutableMapOf(Pair(5, 1), Pair(10, 2), Pair(20, 3), Pair(30, 4))
 
+    @Comment("Turn this to true to see log output")
+    val debug = false
+
     @Suppress("KotlinConstantConditions")
     fun getPoints(player: Player, species: String): Int {
         return (Counter.getPlayerKoStreak(
