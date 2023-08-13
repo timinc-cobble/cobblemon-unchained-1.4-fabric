@@ -26,7 +26,7 @@ The Synchronized Natures module is a little different; it requires that a nearby
 
 ### Points
 
-Each main feature comes with its own config. The first few properties allow you to specify a multiplier for each different type of recorded count, including KOs, KO Streaks, captures, and capture streaks. For example, the default config for the IV Booster gives a multiplier of 0 for all but capture streaks, and 1 for capture streaks. This means that for each point in your current capture streak for a specific Pokémon, you have 1 point towards your total score.
+Each module comes with its own config. The first few properties allow you to specify the amount of points awarded for KOs, KO Streaks, captures, and capture streaks. For example, the default config for the IV Booster gives awards 0 points for all but capture streaks, which award 1 point towards the threshold. This means that for each capture in your current capture streak, you will be awarded 1 point towards the threshold.
 
 ## Dependencies
 
