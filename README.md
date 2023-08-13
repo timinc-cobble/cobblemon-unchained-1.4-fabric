@@ -2,6 +2,10 @@
 
 Add some spice to your Cobblemon world by adding hidden abilities, shiny boosts, guaranteed perfect IVs, and synchronized natures to wild spawning Pokémon, based on the points nearby users have accumulated with KOs, KO streaks, captures, and capture streaks for that Pokémon’s species.
 
+## Help
+
+[Discord](https://discord.com/invite/WKAR27SdSv)
+
 ## Features
 
 ### Hidden Booster
@@ -28,8 +32,8 @@ Each main feature comes with its own config. The first few properties allow you 
 
 Cobblemon [Modrinth](https://modrinth.com/mod/cobblemon) / [CurseForge](https://www.curseforge.com/minecraft/mc-mods/cobblemon)
 
-Cobblemon Counter [Modrinth](https://modrinth.com/mod/cobblemon-counter) / [CurseForge](https://www.curseforge.com/minecraft/mc-mods/cobblemon-counter)
-
 Fabric Language Kotlin [Modrinth](https://modrinth.com/mod/fabric-language-kotlin) / [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin)
+
+Cobblemon Counter [Modrinth](https://modrinth.com/mod/cobblemon-counter) / [CurseForge](https://www.curseforge.com/minecraft/mc-mods/cobblemon-counter)
 
 Cloth Config [Modrinth](https://modrinth.com/mod/cloth-config) / [CurseForge](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
