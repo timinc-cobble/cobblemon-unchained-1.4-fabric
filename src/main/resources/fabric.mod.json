@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "cobblemon_chaining",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "name": "Cobblemon Chaining",
   "description": "Naturally spawning Hidden Abilities. KOs and/or captures increase nearby shiny rates, and can also give perfect IVs to nearby spawns.\n\n",
   "authors": [
