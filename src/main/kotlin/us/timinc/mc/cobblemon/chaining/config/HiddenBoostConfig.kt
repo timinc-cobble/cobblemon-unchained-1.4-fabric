@@ -1,21 +1,22 @@
 package us.timinc.mc.cobblemon.chaining.config
 
-import me.shedaniel.autoconfig.ConfigData
-import me.shedaniel.autoconfig.annotation.Config
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment
+import draylar.omegaconfig.api.Comment
+import draylar.omegaconfig.api.Config
 import net.minecraft.world.entity.player.Player
 import us.timinc.mc.cobblemon.chaining.Chaining
 import us.timinc.mc.cobblemon.counter.Counter
 
 @Suppress("MemberVisibilityCanBePrivate")
-@Config(name = "${Chaining.MOD_ID}/hiddenBoost")
-class HiddenBoostConfig : ConfigData {
+class HiddenBoostConfig : Config {
     @Comment("The multiplier for the player's latest KO streak for a given species")
     val koStreakPoints = 100
+
     @Comment("The multiplier for the player's total KOs for a given species")
     val koCountPoints = 1
+
     @Comment("The multiplier for the player's latest capture streak for a given species")
     val captureStreakPoints = 0
+
     @Comment("The multiplier for the player's total captures for a given species")
     val captureCountPoints = 0
 
@@ -45,9 +46,11 @@ class HiddenBoostConfig : ConfigData {
         if (thresholds.isEmpty()) return null
         if (thresholds.size == 1) return thresholds.values.first()
 
-        val targetThreshold = thresholds.entries
-            .filter { it.key < points }
-            .maxByOrNull { it.key }
+        val targetThreshold = thresholds.entries.filter { it.key < points }.maxByOrNull { it.key }
         return targetThreshold?.value
+    }
+
+    override fun getName(): String {
+        return "${Chaining.MOD_ID}/hiddenBoost"
     }
 }
