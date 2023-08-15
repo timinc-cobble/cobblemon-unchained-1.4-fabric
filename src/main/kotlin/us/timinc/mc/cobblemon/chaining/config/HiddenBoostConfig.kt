@@ -7,14 +7,16 @@ import us.timinc.mc.cobblemon.chaining.Chaining
 import us.timinc.mc.cobblemon.counter.Counter
 
 @Suppress("MemberVisibilityCanBePrivate")
-//@Config(name = "${Chaining.MOD_ID}/hiddenBoost")
 class HiddenBoostConfig : Config {
     @Comment("The multiplier for the player's latest KO streak for a given species")
     val koStreakPoints = 100
+
     @Comment("The multiplier for the player's total KOs for a given species")
     val koCountPoints = 1
+
     @Comment("The multiplier for the player's latest capture streak for a given species")
     val captureStreakPoints = 0
+
     @Comment("The multiplier for the player's total captures for a given species")
     val captureCountPoints = 0
 
@@ -22,8 +24,7 @@ class HiddenBoostConfig : Config {
     val effectiveRange = 64
 
     @Comment("Thresholds for the points: {first/good marbles, second/total marbles}")
-//    val thresholds: Map<Int, Pair<Int, Int>> = mutableMapOf(99 to (1 to 5))
-    val thresholds: Map<Int, Pair<Int, Int>> = HashMap(mutableMapOf(99 to (1 to 5)))
+    val thresholds: Map<Int, Pair<Int, Int>> = mutableMapOf(99 to (1 to 5))
 
     @Comment("Turn this to true to see log output")
     val debug = false
@@ -45,9 +46,7 @@ class HiddenBoostConfig : Config {
         if (thresholds.isEmpty()) return null
         if (thresholds.size == 1) return thresholds.values.first()
 
-        val targetThreshold = thresholds.entries
-            .filter { it.key < points }
-            .maxByOrNull { it.key }
+        val targetThreshold = thresholds.entries.filter { it.key < points }.maxByOrNull { it.key }
         return targetThreshold?.value
     }
 

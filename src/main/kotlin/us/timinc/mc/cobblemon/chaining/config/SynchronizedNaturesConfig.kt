@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Player
 import us.timinc.mc.cobblemon.chaining.Chaining
 import us.timinc.mc.cobblemon.counter.Counter
 
-//@Config(name = "${Chaining.MOD_ID}/synchronizedNatures")
 class SynchronizedNaturesConfig : Config {
     @Comment("The multiplier for the player's latest KO streak for a given species")
     val koStreakPoints = 1
@@ -43,6 +42,7 @@ class SynchronizedNaturesConfig : Config {
 
     @Comment("Turn this to true to see log output")
     val debug = false
+    
     override fun getName(): String {
         return "${Chaining.MOD_ID}/synchronizedNatures"
     }

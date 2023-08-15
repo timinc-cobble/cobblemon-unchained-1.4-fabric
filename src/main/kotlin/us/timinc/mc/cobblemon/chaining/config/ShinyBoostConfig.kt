@@ -9,7 +9,6 @@ import us.timinc.mc.cobblemon.chaining.Chaining
 import us.timinc.mc.cobblemon.counter.Counter
 
 @Suppress("MemberVisibilityCanBePrivate")
-//@Config(name = "${Chaining.MOD_ID}/shinyBoost")
 class ShinyBoostConfig : Config {
     @Comment("The multiplier for the player's latest KO streak for a given species")
     val koStreakPoints = 1
