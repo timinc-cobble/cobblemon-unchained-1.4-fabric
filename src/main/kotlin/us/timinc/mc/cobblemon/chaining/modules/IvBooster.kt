@@ -18,7 +18,7 @@ class IvBooster(private val config: IvBoostConfig) : SpawnActionModifier("ivBoos
 
         if (!Util.matchesList(pokemon, config.whitelist, config.blacklist)) {
             info("$species is blocked by the blacklist", config.debug)
-            return;
+            return
         }
 
         val nearbyPlayers = getNearbyPlayers(ctx, config.effectiveRange.toDouble())

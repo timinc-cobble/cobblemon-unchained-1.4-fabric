@@ -17,7 +17,7 @@ class HiddenBooster(private val config: HiddenBoostConfig) : SpawnActionModifier
 
         if (!Util.matchesList(pokemon, config.whitelist, config.blacklist)) {
             info("$species is blocked by the blacklist", config.debug)
-            return;
+            return
         }
 
         val nearbyPlayers = getNearbyPlayers(ctx, config.effectiveRange.toDouble())
