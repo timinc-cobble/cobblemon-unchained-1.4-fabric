@@ -1,5 +1,7 @@
 package us.timinc.mc.cobblemon.chaining.util
 
+import com.cobblemon.mod.common.pokemon.Pokemon
+
 object Util {
     fun <T> pickRandomItems(inputSet: Set<T>, numToPick: Int): Set<T> {
         if (numToPick <= 0 || numToPick > inputSet.size) {
@@ -16,5 +18,24 @@ object Util {
         }
 
         return pickedItems
+    }
+
+    private fun pokemonHasLabel(pokemon: Pokemon, label: String): Boolean {
+        println("${pokemon.species.name.lowercase()}, $label")
+        return pokemon.hasLabels(label) || pokemon.species.name.lowercase() == label
+    }
+
+    fun matchesList(pokemon: Pokemon, whitelist: Set<String>, blacklist: Set<String>): Boolean {
+        return when {
+            whitelist.isNotEmpty() && blacklist.isNotEmpty() -> whitelist.any {
+                pokemonHasLabel(
+                    pokemon, it
+                )
+            } || blacklist.none { pokemonHasLabel(pokemon, it) }
+
+            whitelist.isNotEmpty() -> whitelist.any { pokemonHasLabel(pokemon, it) }
+            blacklist.isNotEmpty() -> blacklist.none { pokemonHasLabel(pokemon, it) }
+            else -> true
+        }
     }
 }

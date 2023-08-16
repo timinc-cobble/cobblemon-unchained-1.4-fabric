@@ -21,6 +21,21 @@ class SynchronizedNaturesConfig : Config {
     @Comment("The multiplier for the player's total captures for a given species")
     val captureCountPoints = 0
 
+    @Comment("The distance at which a spawning Pokémon considers a player for this boost")
+    val effectiveRange = 64
+
+    @Comment("Whether or not the Pokemon with synchronize must be the first in your party in order to be considered")
+    val mustBeFirst = true
+
+    @Comment("Turn this to true to see log output")
+    val debug = false
+
+    @Comment("A list of Pokémon species and form labels to ignore")
+    val blacklist = mutableSetOf<String>()
+
+    @Comment("A list of Pokémon species and form labels to exclusively consider")
+    val whitelist = mutableSetOf<String>()
+
     @Suppress("KotlinConstantConditions")
     fun getPoints(player: Player, species: String): Int {
         return (Counter.getPlayerKoStreak(
@@ -33,15 +48,6 @@ class SynchronizedNaturesConfig : Config {
             player, species
         ) * captureCountPoints) + 1
     }
-
-    @Comment("The distance at which a spawning Pokémon considers a player for this boost")
-    val effectiveRange = 64
-
-    @Comment("Whether or not the Pokemon with synchronize must be the first in your party in order to be considered")
-    val mustBeFirst = true
-
-    @Comment("Turn this to true to see log output")
-    val debug = false
     
     override fun getName(): String {
         return "${Chaining.MOD_ID}/synchronizedNatures"

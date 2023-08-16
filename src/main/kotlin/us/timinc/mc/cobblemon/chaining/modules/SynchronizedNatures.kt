@@ -1,19 +1,25 @@
 package us.timinc.mc.cobblemon.chaining.modules
 
 import com.cobblemon.mod.common.Cobblemon
-import com.cobblemon.mod.common.api.pokemon.PokemonProperties
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.pokemon.Nature
 import net.minecraft.server.level.ServerPlayer
 import us.timinc.mc.cobblemon.chaining.config.SynchronizedNaturesConfig
+import us.timinc.mc.cobblemon.chaining.util.Util
 import kotlin.random.Random.Default.nextInt
 
 class SynchronizedNatures(private val config: SynchronizedNaturesConfig) : SpawnActionModifier("synchronizedNatures") {
-    override fun act(entity: PokemonEntity?, ctx: SpawningContext, props: PokemonProperties) {
-        info("${props.species} spawned at ${ctx.position.toShortString()}", config.debug)
+    override fun act(entity: PokemonEntity, ctx: SpawningContext) {
+        val pokemon = entity.pokemon
+        val species = entity.species.get().lowercase().split(":").last()
 
-        val species = props.species ?: return
+        info("$species spawned at ${ctx.position.toShortString()}", config.debug)
+
+        if (!Util.matchesList(pokemon, config.whitelist, config.blacklist)) {
+            info("$species is blocked by the blacklist", config.debug)
+            return;
+        }
 
         val nearbyPlayers = getNearbyPlayers(ctx, config.effectiveRange.toDouble())
         info("nearby players: ${nearbyPlayers.size} ${nearbyPlayers.map { it.name.string }}", config.debug)
@@ -23,29 +29,26 @@ class SynchronizedNatures(private val config: SynchronizedNaturesConfig) : Spawn
         }
 
         val nearbyPlayersWithSynchronize = nearbyPlayers.filter { getSynchronizedNature(it) != null }
-        info(
-            "nearby players with synchronize: ${nearbyPlayersWithSynchronize.size} ${
-                nearbyPlayersWithSynchronize.map { it.name.string }
-            }:${nearbyPlayersWithSynchronize.map { config.getPoints(it, species) }}", config.debug
+        info("nearby players with synchronize: ${nearbyPlayersWithSynchronize.size} ${
+            nearbyPlayersWithSynchronize.map { it.name.string }
+        }:${nearbyPlayersWithSynchronize.map { config.getPoints(it, species) }}", config.debug
         )
         if (nearbyPlayersWithSynchronize.isEmpty()) {
             info("conclusion: no nearby players with synchronize", config.debug)
             return
         }
 
-        val marbles = nearbyPlayersWithSynchronize.sumOf { config.getPoints(it, species) }
-        var pickedMarble = nextInt(marbles)
-        info("out of $marbles total marbles, picked marble #$pickedMarble", config.debug)
+        val totalMarbles = nearbyPlayersWithSynchronize.sumOf { config.getPoints(it, species) }
+        var pickedMarble = nextInt(totalMarbles)
+        info("out of $totalMarbles total marbles, picked marble #$pickedMarble", config.debug)
         val pickedPlayer = nearbyPlayersWithSynchronize.find {
             pickedMarble -= config.getPoints(it, species)
             pickedMarble <= 0
-        }
+        }!!
 
-        pickedPlayer?.let { player ->
-            getSynchronizedNature(player)?.name?.path?.let { nature ->
-                props.nature = nature
-                info("conclusion: setting $species nature to $nature", config.debug)
-            }
+        getSynchronizedNature(pickedPlayer)?.let {
+            entity.pokemon.nature = it
+            info("conclusion: setting $species nature to ${it.displayName}", config.debug)
         }
     }
 

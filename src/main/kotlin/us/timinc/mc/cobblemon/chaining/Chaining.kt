@@ -1,6 +1,5 @@
 package us.timinc.mc.cobblemon.chaining
 
-import com.cobblemon.mod.common.api.pokemon.PokemonProperties
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import draylar.omegaconfig.OmegaConfig
@@ -35,19 +34,19 @@ object Chaining : ModInitializer {
         synchronizedNatures = SynchronizedNatures(synchronizedNaturesConfig)
     }
 
-    fun possiblyMakeShiny(ctx: SpawningContext, props: PokemonProperties) {
-        shinyBooster.act(null, ctx, props)
+    fun possiblyMakeShiny(entity: PokemonEntity, ctx: SpawningContext) {
+        shinyBooster.act(entity, ctx)
     }
 
-    fun possiblyModifyIvs(entity: PokemonEntity, ctx: SpawningContext, props: PokemonProperties) {
-        ivBooster.act(entity, ctx, props)
+    fun possiblyModifyIvs(entity: PokemonEntity, ctx: SpawningContext) {
+        ivBooster.act(entity, ctx)
     }
 
-    fun possiblyAddHiddenAbility(entity: PokemonEntity, ctx: SpawningContext, props: PokemonProperties) {
-        hiddenBooster.act(entity, ctx, props)
+    fun possiblyAddHiddenAbility(entity: PokemonEntity, ctx: SpawningContext) {
+        hiddenBooster.act(entity, ctx)
     }
 
-    fun possiblySynchronizeNatures(ctx: SpawningContext, props: PokemonProperties) {
-        synchronizedNatures.act(null, ctx, props)
+    fun possiblySynchronizeNatures(entity: PokemonEntity, ctx: SpawningContext) {
+        synchronizedNatures.act(entity, ctx)
     }
 }
