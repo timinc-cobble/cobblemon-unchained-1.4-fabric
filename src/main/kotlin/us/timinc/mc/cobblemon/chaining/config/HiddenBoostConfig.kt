@@ -49,7 +49,7 @@ class HiddenBoostConfig : Config {
     }
 
     fun getThreshold(points: Int): Pair<Int, Int>? {
-        return thresholds.entries.filter { it.key < points }.maxByOrNull { it.key }?.value
+        return thresholds.entries.filter { it.key <= points }.maxByOrNull { it.key }?.value
     }
 
     override fun getName(): String {
