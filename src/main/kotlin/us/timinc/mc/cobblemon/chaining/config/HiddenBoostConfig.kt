@@ -29,6 +29,12 @@ class HiddenBoostConfig : Config {
     @Comment("Turn this to true to see log output")
     val debug = false
 
+    @Comment("A list of Pokémon species and form labels to ignore")
+    val blacklist = mutableSetOf<String>()
+
+    @Comment("A list of Pokémon species and form labels to exclusively consider")
+    val whitelist = mutableSetOf<String>()
+
     @Suppress("KotlinConstantConditions")
     fun getPoints(player: Player, species: String): Int {
         return (Counter.getPlayerKoStreak(
@@ -43,11 +49,7 @@ class HiddenBoostConfig : Config {
     }
 
     fun getThreshold(points: Int): Pair<Int, Int>? {
-        if (thresholds.isEmpty()) return null
-        if (thresholds.size == 1) return thresholds.values.first()
-
-        val targetThreshold = thresholds.entries.filter { it.key < points }.maxByOrNull { it.key }
-        return targetThreshold?.value
+        return thresholds.entries.filter { it.key < points }.maxByOrNull { it.key }?.value
     }
 
     override fun getName(): String {

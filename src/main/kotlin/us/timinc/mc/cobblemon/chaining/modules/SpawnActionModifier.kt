@@ -1,6 +1,5 @@
 package us.timinc.mc.cobblemon.chaining.modules
 
-import com.cobblemon.mod.common.api.pokemon.PokemonProperties
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import net.minecraft.server.level.ServerPlayer
@@ -17,7 +16,7 @@ abstract class SpawnActionModifier(name: String) {
         logger = LogManager.getLogger(name)
     }
 
-    abstract fun act(entity: PokemonEntity?, ctx: SpawningContext, props: PokemonProperties)
+    abstract fun act(entity: PokemonEntity, ctx: SpawningContext)
 
     fun info(msg: String, debug: Boolean) {
         if (!debug) return

@@ -1,6 +1,5 @@
 package us.timinc.mc.cobblemon.chaining.modules
 
-import com.cobblemon.mod.common.api.pokemon.PokemonProperties
 import com.cobblemon.mod.common.api.pokemon.stats.Stat
 import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext
@@ -11,11 +10,16 @@ import us.timinc.mc.cobblemon.chaining.config.IvBoostConfig
 import us.timinc.mc.cobblemon.chaining.util.Util
 
 class IvBooster(private val config: IvBoostConfig) : SpawnActionModifier("ivBooster") {
-    override fun act(entity: PokemonEntity?, ctx: SpawningContext, props: PokemonProperties) {
-        info("${props.species} spawned at ${ctx.position.toShortString()}", config.debug)
+    override fun act(entity: PokemonEntity, ctx: SpawningContext) {
+        val pokemon = entity.pokemon
+        val species = pokemon.species.name.lowercase()
 
-        val innerEntity = entity ?: return
-        val species = innerEntity.pokemon.species.name.lowercase()
+        info("$species spawned at ${ctx.position.toShortString()}", config.debug)
+
+        if (!Util.matchesList(pokemon, config.whitelist, config.blacklist)) {
+            info("$species is blocked by the blacklist", config.debug)
+            return
+        }
 
         val nearbyPlayers = getNearbyPlayers(ctx, config.effectiveRange.toDouble())
         info("nearby players: ${nearbyPlayers.size} ${
@@ -36,7 +40,7 @@ class IvBooster(private val config: IvBoostConfig) : SpawnActionModifier("ivBoos
         }
 
         val maxPlayer = possibleMaxPlayer.get()
-        val points = config.getPoints(maxPlayer, props.species!!)
+        val points = config.getPoints(maxPlayer, species)
         val perfectIvCount = config.getThreshold(points)
 
         info("${maxPlayer.name.string} wins with $points points, $perfectIvCount perfect IVs", config.debug)
@@ -48,7 +52,7 @@ class IvBooster(private val config: IvBoostConfig) : SpawnActionModifier("ivBoos
 
         val perfectIvs: Set<Stat> = Util.pickRandomItems(Stats.BATTLE_ONLY, perfectIvCount)
         for (perfectIv in perfectIvs) {
-            innerEntity.pokemon.ivs[perfectIv] = IVs.MAX_VALUE
+            pokemon.ivs[perfectIv] = IVs.MAX_VALUE
         }
         info("conclusion: set ${perfectIvs.map { it.displayName.string }} to perfect", config.debug)
     }
