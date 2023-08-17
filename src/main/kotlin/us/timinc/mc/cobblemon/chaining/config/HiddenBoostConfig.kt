@@ -23,8 +23,11 @@ class HiddenBoostConfig : Config {
     @Comment("The distance at which a spawning Pokémon considers a player for this boost")
     val effectiveRange = 64
 
-    @Comment("Thresholds for the points: {first/good marbles, second/total marbles}")
-    val thresholds: Map<Int, Pair<Int, Int>> = mutableMapOf(99 to (1 to 5))
+    @Comment("Thresholds for the points: hidden ability chances")
+    val thresholds: Map<Int, Int> = mutableMapOf(99 to 1)
+
+    @Comment("The total possible chances. Similar to shinyRate in the main Cobblemon config.")
+    val marbles = 5
 
     @Comment("Turn this to true to see log output")
     val debug = false
@@ -48,8 +51,8 @@ class HiddenBoostConfig : Config {
         ) * captureCountPoints)
     }
 
-    fun getThreshold(points: Int): Pair<Int, Int>? {
-        return thresholds.entries.filter { it.key <= points }.maxByOrNull { it.key }?.value
+    fun getThreshold(points: Int): Int {
+        return thresholds.maxOfOrNull { if (it.key <= points) it.value else 0 } ?: 0
     }
 
     override fun getName(): String {
