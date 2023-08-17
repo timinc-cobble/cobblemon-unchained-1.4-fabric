@@ -35,5 +35,3 @@ Cobblemon [Modrinth](https://modrinth.com/mod/cobblemon) / [CurseForge](https://
 Fabric Language Kotlin [Modrinth](https://modrinth.com/mod/fabric-language-kotlin) / [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin)
 
 Cobblemon Counter [Modrinth](https://modrinth.com/mod/cobblemon-counter) / [CurseForge](https://www.curseforge.com/minecraft/mc-mods/cobblemon-counter)
-
-Cloth Config [Modrinth](https://modrinth.com/mod/cloth-config) / [CurseForge](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
