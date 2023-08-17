@@ -12,7 +12,7 @@ import kotlin.random.Random.Default.nextInt
 class SynchronizedNatures(private val config: SynchronizedNaturesConfig) : SpawnActionModifier("synchronizedNatures") {
     override fun act(entity: PokemonEntity, ctx: SpawningContext) {
         val pokemon = entity.pokemon
-        val species = entity.species.get().lowercase().split(":").last()
+        val species = pokemon.species.name.lowercase()
 
         info("$species spawned at ${ctx.position.toShortString()}", config.debug)
 

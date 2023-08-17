@@ -6,12 +6,12 @@ import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import net.minecraft.world.entity.player.Player
 import us.timinc.mc.cobblemon.chaining.config.HiddenBoostConfig
 import us.timinc.mc.cobblemon.chaining.util.Util
-import kotlin.random.Random
+import kotlin.random.Random.Default.nextInt
 
 class HiddenBooster(private val config: HiddenBoostConfig) : SpawnActionModifier("hiddenBooster") {
     override fun act(entity: PokemonEntity, ctx: SpawningContext) {
         val pokemon = entity.pokemon
-        val species = entity.species.get().lowercase().split(":").last()
+        val species = pokemon.species.name.lowercase()
 
         info("$species spawned at ${ctx.position.toShortString()}", config.debug)
 
@@ -50,7 +50,7 @@ class HiddenBooster(private val config: HiddenBoostConfig) : SpawnActionModifier
 
         val goodMarbles = chances.first
         val totalMarbles = chances.second
-        val hiddenAbilityRoll = Random.nextInt(0, totalMarbles)
+        val hiddenAbilityRoll = nextInt(0, totalMarbles)
         val successfulRoll = hiddenAbilityRoll < goodMarbles
 
         info(

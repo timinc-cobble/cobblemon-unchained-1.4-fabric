@@ -6,12 +6,12 @@ import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import net.minecraft.world.entity.player.Player
 import us.timinc.mc.cobblemon.chaining.config.ShinyBoostConfig
 import us.timinc.mc.cobblemon.chaining.util.Util
-import kotlin.random.Random
+import kotlin.random.Random.Default.nextInt
 
 class ShinyBooster(private val config: ShinyBoostConfig) : SpawnActionModifier("shinyBooster") {
     override fun act(entity: PokemonEntity, ctx: SpawningContext) {
         val pokemon = entity.pokemon
-        val species = entity.species.get().lowercase().split(":").last()
+        val species = pokemon.species.name.lowercase()
 
         info("$species spawned at ${ctx.position.toShortString()}", config.debug)
 
@@ -48,7 +48,7 @@ class ShinyBooster(private val config: ShinyBoostConfig) : SpawnActionModifier("
             return
         }
 
-        val shinyRoll = Random.nextInt(shinyRate)
+        val shinyRoll = nextInt(shinyRate)
         val successfulRoll = shinyRoll < shinyChances
 
         info(

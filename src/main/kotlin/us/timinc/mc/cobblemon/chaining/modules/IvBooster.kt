@@ -12,7 +12,7 @@ import us.timinc.mc.cobblemon.chaining.util.Util
 class IvBooster(private val config: IvBoostConfig) : SpawnActionModifier("ivBooster") {
     override fun act(entity: PokemonEntity, ctx: SpawningContext) {
         val pokemon = entity.pokemon
-        val species = entity.species.get().lowercase().split(":").last()
+        val species = pokemon.species.name.lowercase()
 
         info("$species spawned at ${ctx.position.toShortString()}", config.debug)
 
