@@ -51,7 +51,7 @@ class IvBoostConfig : Config {
     }
 
     fun getThreshold(points: Int): Int {
-        return thresholds.maxOfOrNull { entry -> if (entry.key < points) entry.value else 0 } ?: 0
+        return thresholds.maxOfOrNull { if (it.key <= points) it.value else 0 } ?: 0
     }
 
     override fun getName(): String {
