@@ -50,7 +50,7 @@ class IvBooster(private val config: IvBoostConfig) : SpawnActionModifier("ivBoos
             return
         }
 
-        val perfectIvs: Set<Stat> = Util.pickRandomItems(Stats.BATTLE_ONLY, perfectIvCount)
+        val perfectIvs: Set<Stat> = Util.pickRandomItems(Stats.PERMANENT, perfectIvCount)
         for (perfectIv in perfectIvs) {
             pokemon.ivs[perfectIv] = IVs.MAX_VALUE
         }
