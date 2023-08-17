@@ -40,21 +40,20 @@ class HiddenBooster(private val config: HiddenBoostConfig) : SpawnActionModifier
 
         val maxPlayer = possibleMaxPlayer.get()
         val points = config.getPoints(maxPlayer, species)
-        val chances = config.getThreshold(points)
+        val goodMarbles = config.getThreshold(points)
+        val totalMarbles = config.marbles
 
-        if (chances == null) {
+        if (goodMarbles == 0) {
             info("${maxPlayer.name.string} wins with $points points, has no chance", config.debug)
             info("conclusion: winning player didn't get any hidden ability chance", config.debug)
             return
         }
 
-        val goodMarbles = chances.first
-        val totalMarbles = chances.second
         val hiddenAbilityRoll = nextInt(0, totalMarbles)
         val successfulRoll = hiddenAbilityRoll < goodMarbles
 
         info(
-            "${maxPlayer.name.string} wins with $points points, has a ${chances.first} out of ${chances.second}, rolls a $hiddenAbilityRoll, ${if (successfulRoll) "wins" else "loses"}",
+            "${maxPlayer.name.string} wins with $points points, has a $goodMarbles out of ${totalMarbles}, rolls a $hiddenAbilityRoll, ${if (successfulRoll) "wins" else "loses"}",
             config.debug
         )
 
