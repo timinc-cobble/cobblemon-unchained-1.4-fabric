@@ -10,15 +10,15 @@ Add some spice to your Cobblemon world by adding hidden abilities, shiny boosts,
 
 ### Hidden Booster
 
-The Hidden Booster module gives spawning Pokémon the opportunity to spawn with their hidden ability. Each threshold grants a chance of `first` out of `second` that the spawning Pokémon will unlock their hidden ability slot. The default values for `hiddenBoost.json5` make it so that a player who most recently KO’d a given species, or someone who has KO’d at least 100 of a given species will give that species a 1 in 5 (20%) chance to spawn with its hidden ability 64 blocks around that player.
+The Hidden Booster module gives spawning Pokémon the opportunity to spawn with their hidden ability. Each threshold grants a chance out of `marble` chances that the spawning Pokémon will unlock their hidden ability slot. The default values for `hiddenBoost.json5` make it so that a player who most recently KO’d a given species, or someone who has KO’d at least 99 of a given species will give that species a 1 in 5 (20%) chance to spawn with its hidden ability 64 blocks around that player.
 
 ### Shiny Booster
 
-The Shiny Booster module enhances the likelihood of encountering shiny Pokémon spawns. With each threshold reached, the chances of encountering a shiny Pokémon during spawn increase. When employing the default settings of `shinyBoost.json5` in conjunction with Cobblemon's default configuration values, the following shiny spawn rates are obtained: 2/8196 for a KO streak of 101+, 3/8196 for 301+, 4/8196 for 501+, and for all other cases 1/8196.
+The Shiny Booster module enhances the likelihood of encountering shiny Pokémon spawns. With each threshold reached, the chances of encountering a shiny Pokémon during spawn increase. The default settings of `shinyBoost.json5` with Cobblemon's default configuration values give the following shiny spawn rates: 2/8196 for a KO streak of 100+, 3/8196 for 300+, 4/8196 for 500+, and for all other cases 1/8196.
 
 ### IV Booster
 
-The IV Booster module gives spawning Pokémon guaranteed perfect IVs based on the highest of a nearby player’s points. With the default `ivBoost.json5`, a capture streak of 6+ gives 1, 11+ gives 2, 21+ gives 3, and 30+ gives 4.
+The IV Booster module gives spawning Pokémon guaranteed perfect IVs based on the highest of a nearby player’s points. With the default `ivBoost.json5`, a capture streak of 5+ gives 1, 10+ gives 2, 20+ gives 3, and 30+ gives 4.
 
 ### Synchronized Natures
 
