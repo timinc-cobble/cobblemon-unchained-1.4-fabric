@@ -35,6 +35,8 @@ class SynchronizedNaturesConfig : Config {
     //    @Comment("A list of Pokémon species and form labels to exclusively consider")
     val whitelist = mutableSetOf<String>()
 
+    val percentChance = 0.5;
+
     @Suppress("KotlinConstantConditions")
     fun getPoints(player: Player, species: String): Int {
         return (Counter.getPlayerKoStreak(

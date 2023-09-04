@@ -7,6 +7,8 @@ import com.cobblemon.mod.common.pokemon.Nature
 import net.minecraft.server.level.ServerPlayer
 import us.timinc.mc.cobblemon.chaining.config.SynchronizedNaturesConfig
 import us.timinc.mc.cobblemon.chaining.util.Util
+import kotlin.random.Random
+import kotlin.random.Random.Default.nextDouble
 import kotlin.random.Random.Default.nextInt
 
 class SynchronizedNatures(private val config: SynchronizedNaturesConfig) : SpawnActionModifier("synchronizedNatures") {
@@ -15,6 +17,12 @@ class SynchronizedNatures(private val config: SynchronizedNaturesConfig) : Spawn
         val species = pokemon.species.name.lowercase()
 
         info("$species spawned at ${ctx.position.toShortString()}", config.debug)
+
+        val roll = nextDouble()
+        info("Rolled a $roll out of ${config.percentChance}", config.debug)
+        if (roll >= config.percentChance) {
+            return
+        }
 
         if (!Util.matchesList(pokemon, config.whitelist, config.blacklist)) {
             info("$species is blocked by the blacklist", config.debug)
