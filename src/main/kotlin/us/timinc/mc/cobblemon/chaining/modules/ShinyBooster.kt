@@ -3,7 +3,7 @@ package us.timinc.mc.cobblemon.chaining.modules
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import net.minecraft.world.entity.player.Player
+import net.minecraft.entity.player.PlayerEntity
 import us.timinc.mc.cobblemon.chaining.config.ShinyBoostConfig
 import us.timinc.mc.cobblemon.chaining.util.Util
 import kotlin.random.Random.Default.nextInt
@@ -30,7 +30,7 @@ class ShinyBooster(private val config: ShinyBoostConfig) : SpawnActionModifier("
                 }"
             }
         }", config.debug)
-        val possibleMaxPlayer = nearbyPlayers.stream().max(Comparator.comparingInt { player: Player? ->
+        val possibleMaxPlayer = nearbyPlayers.stream().max(Comparator.comparingInt { player: PlayerEntity? ->
             config.getPoints(player!!, species)
         })
         if (possibleMaxPlayer.isEmpty) {

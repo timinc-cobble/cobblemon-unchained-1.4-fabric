@@ -2,7 +2,6 @@ package us.timinc.mc.cobblemon.chaining
 
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import draylar.omegaconfig.OmegaConfig
 import net.fabricmc.api.ModInitializer
 import us.timinc.mc.cobblemon.chaining.config.HiddenBoostConfig
 import us.timinc.mc.cobblemon.chaining.config.IvBoostConfig
@@ -16,11 +15,10 @@ import us.timinc.mc.cobblemon.chaining.modules.SynchronizedNatures
 object Chaining : ModInitializer {
     const val MOD_ID = "cobblemon_chaining"
 
-    private var shinyBoostConfig: ShinyBoostConfig = OmegaConfig.register(ShinyBoostConfig::class.java)
-    private var ivBoostConfig: IvBoostConfig = OmegaConfig.register(IvBoostConfig::class.java)
-    private var hiddenBoostConfig: HiddenBoostConfig = OmegaConfig.register(HiddenBoostConfig::class.java)
-    private var synchronizedNaturesConfig: SynchronizedNaturesConfig =
-        OmegaConfig.register(SynchronizedNaturesConfig::class.java)
+    private lateinit var shinyBoostConfig: ShinyBoostConfig
+    private lateinit var ivBoostConfig: IvBoostConfig
+    private lateinit var hiddenBoostConfig: HiddenBoostConfig
+    private lateinit var synchronizedNaturesConfig: SynchronizedNaturesConfig
 
     private lateinit var ivBooster: IvBooster
     private lateinit var shinyBooster: ShinyBooster
@@ -28,6 +26,11 @@ object Chaining : ModInitializer {
     private lateinit var synchronizedNatures: SynchronizedNatures
 
     override fun onInitialize() {
+        shinyBoostConfig = ShinyBoostConfig.Builder.load()
+        ivBoostConfig = IvBoostConfig.Builder.load()
+        hiddenBoostConfig = HiddenBoostConfig.Builder.load()
+        synchronizedNaturesConfig = SynchronizedNaturesConfig.Builder.load()
+
         shinyBooster = ShinyBooster(shinyBoostConfig)
         ivBooster = IvBooster(ivBoostConfig)
         hiddenBooster = HiddenBooster(hiddenBoostConfig)

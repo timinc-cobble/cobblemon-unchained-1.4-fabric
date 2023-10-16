@@ -1,12 +1,15 @@
 package us.timinc.mc.cobblemon.chaining.config
 
-import draylar.omegaconfig.api.Config
-import net.minecraft.world.entity.player.Player
+import com.google.gson.GsonBuilder
+import net.minecraft.entity.player.PlayerEntity
 import us.timinc.mc.cobblemon.chaining.Chaining
 import us.timinc.mc.cobblemon.counter.Counter
+import java.io.File
+import java.io.FileReader
+import java.io.PrintWriter
 
 @Suppress("MemberVisibilityCanBePrivate")
-class HiddenBoostConfig : Config {
+class HiddenBoostConfig {
     //    @Comment("The multiplier for the player's latest KO streak for a given species")
     val koStreakPoints = 100
 
@@ -38,7 +41,7 @@ class HiddenBoostConfig : Config {
     val whitelist = mutableSetOf<String>()
 
     @Suppress("KotlinConstantConditions")
-    fun getPoints(player: Player, species: String): Int {
+    fun getPoints(player: PlayerEntity, species: String): Int {
         return (Counter.getPlayerKoStreak(
             player, species
         ) * koStreakPoints) + (Counter.getPlayerKoCount(
@@ -54,7 +57,34 @@ class HiddenBoostConfig : Config {
         return thresholds.maxOfOrNull { if (it.key <= points) it.value else 0 } ?: 0
     }
 
-    override fun getName(): String {
-        return "${Chaining.MOD_ID}/hiddenBoost"
+    class Builder {
+        companion object {
+            fun load() : HiddenBoostConfig {
+                val gson = GsonBuilder()
+                    .disableHtmlEscaping()
+                    .setPrettyPrinting()
+                    .create()
+
+                var config = HiddenBoostConfig()
+                val configFile = File("config/${Chaining.MOD_ID}/hiddenBoost.json")
+                configFile.parentFile.mkdirs()
+
+                if (configFile.exists()) {
+                    try {
+                        val fileReader = FileReader(configFile)
+                        config = gson.fromJson(fileReader, HiddenBoostConfig::class.java)
+                        fileReader.close()
+                    } catch (e: Exception) {
+                        println("Error reading config file")
+                    }
+                }
+
+                val pw = PrintWriter(configFile)
+                gson.toJson(config, pw)
+                pw.close()
+
+                return config
+            }
+        }
     }
 }

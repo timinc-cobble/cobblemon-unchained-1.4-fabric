@@ -3,7 +3,7 @@ package us.timinc.mc.cobblemon.chaining.mixins;
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext;
 import com.cobblemon.mod.common.api.spawning.detail.PokemonSpawnAction;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

@@ -5,7 +5,7 @@ import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.pokemon.IVs
-import net.minecraft.world.entity.player.Player
+import net.minecraft.entity.player.PlayerEntity
 import us.timinc.mc.cobblemon.chaining.config.IvBoostConfig
 import us.timinc.mc.cobblemon.chaining.util.Util
 
@@ -31,7 +31,7 @@ class IvBooster(private val config: IvBoostConfig) : SpawnActionModifier("ivBoos
                 }"
             }
         }", config.debug)
-        val possibleMaxPlayer = nearbyPlayers.stream().max(Comparator.comparingInt { player: Player? ->
+        val possibleMaxPlayer = nearbyPlayers.stream().max(Comparator.comparingInt { player: PlayerEntity? ->
             config.getPoints(player!!, species)
         })
         if (possibleMaxPlayer.isEmpty) {

@@ -4,10 +4,9 @@ import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.pokemon.Nature
-import net.minecraft.server.level.ServerPlayer
+import net.minecraft.entity.player.PlayerEntity
 import us.timinc.mc.cobblemon.chaining.config.SynchronizedNaturesConfig
 import us.timinc.mc.cobblemon.chaining.util.Util
-import kotlin.random.Random
 import kotlin.random.Random.Default.nextDouble
 import kotlin.random.Random.Default.nextInt
 
@@ -60,8 +59,8 @@ class SynchronizedNatures(private val config: SynchronizedNaturesConfig) : Spawn
         }
     }
 
-    private fun getSynchronizedNature(player: ServerPlayer): Nature? {
-        val playerPartyStore = Cobblemon.storage.getParty(player)
+    private fun getSynchronizedNature(player: PlayerEntity): Nature? {
+        val playerPartyStore = Cobblemon.storage.getParty(player.uuid)
         if (config.mustBeFirst) {
             val firstPartyMember = playerPartyStore.firstOrNull()
             if (firstPartyMember?.ability?.name != "synchronize") {
