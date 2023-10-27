@@ -21,7 +21,6 @@ object Util {
     }
 
     private fun pokemonHasLabel(pokemon: Pokemon, label: String): Boolean {
-        println("${pokemon.species.name.lowercase()}, $label")
         return pokemon.hasLabels(label) || pokemon.species.name.lowercase() == label
     }
 
