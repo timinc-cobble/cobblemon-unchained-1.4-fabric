@@ -1,4 +1,4 @@
-rootProject.name = "cobblemon-unchained"
+rootProject.name = "cobblemon-unchained-fabric"
 
 pluginManagement {
     repositories {
