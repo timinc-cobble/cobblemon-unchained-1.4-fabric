@@ -5,6 +5,7 @@ package us.timinc.mc.cobblemon.chaining.config
 import com.google.gson.GsonBuilder
 import net.minecraft.entity.player.PlayerEntity
 import us.timinc.mc.cobblemon.chaining.Chaining
+import us.timinc.mc.cobblemon.chaining.util.Util
 import us.timinc.mc.cobblemon.counter.Counter
 import java.io.File
 import java.io.FileReader
@@ -41,15 +42,9 @@ class ShinyBoostConfig {
 
     @Suppress("KotlinConstantConditions")
     fun getPoints(player: PlayerEntity, species: String): Int {
-        return (Counter.getPlayerKoStreak(
-            player, species
-        ) * koStreakPoints) + (Counter.getPlayerKoCount(
-            player, species
-        ) * koCountPoints) + (Counter.getPlayerCaptureStreak(
-            player, species
-        ) * captureStreakPoints) + (Counter.getPlayerCaptureCount(
-            player, species
-        ) * captureCountPoints)
+        return Util.getPlayerScore(
+            player, species, koStreakPoints, koCountPoints, captureStreakPoints, captureCountPoints
+        )
     }
 
     fun getThreshold(points: Int): Int {
